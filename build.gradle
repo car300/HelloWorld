@@ -17,10 +17,12 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {url RELEASE_REPOSITORY_URL}
-        google()
-        jcenter()
-
+        maven { url RELEASE_REPOSITORY_URL }
+//        google()
+//        jcenter()
+        maven {
+            url 'http://192.168.1.107:8081/repository/maven-public/'
+        }
     }
 }
 
