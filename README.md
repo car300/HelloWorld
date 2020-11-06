@@ -11,7 +11,8 @@ A demo for private maven repository
 ## 提交到仓库
 * 在module的build.gradle内添加:
     ```gradle
-    apply from: 'https://raw.githubusercontent.com/car300/HelloWorld/master/helloworld/gradle-mvn-push-simpe.gradle'
+    apply from: 'https://raw.githubusercontent.com/car300/HelloWorld/master/script/publish-maven-simple.gradle'
+    // apply from: 'https://raw.githubusercontent.com/car300/HelloWorld/master/script/publish-maven.gradle'
     ```
 * 或者将script/gradle-mvn-push*.gradle拷贝到目标module
 
