@@ -2,47 +2,49 @@
 A demo for private maven repository
 
 ## 登录到管理后台
-   * web访问http://192.168.1.107:8081
-   * 登陆 
+   * web访问http://172.16.0.236:8081
+   * 登录
     ```
      developer che300
     ```
 
 ## 提交到仓库
-* 将helloworld/gradle-mvn-push*.gradle拷贝到目标module
-* 在gradle.properties内配置
+* 在module的build.gradle内添加:
+    ```gradle
+    apply from: 'https://raw.githubusercontent.com/car300/HelloWorld/master/helloworld/gradle-mvn-push-simpe.gradle'
+    ```
+* 或者将script/gradle-mvn-push*.gradle拷贝到目标module
+
+* 在module/gradle.properties内配置, 没有可以新建文件
     ```
     # 服务器配置
     NEXUS_USERNAME=developer
     NEXUS_PASSWORD=che300
-    # 正式仓库地址
-    RELEASE_REPOSITORY_URL=http://192.168.1.107:8081/repository/maven-releases/
-    # SNAPSHOT仓库,发布SNAPSHOT版本需要声明版本为(版本号-SNAPSHOT)
-    SNAPSHOT_REPOSITORY_URL=http://192.168.1.107:8081/repository/maven-snapshots/
-    
+    # 如果没有修改可以不配置
+    #RELEASE_REPOSITORY_URL=http://172.16.0.236:8081/repository/maven-releases/
+    #SNAPSHOT_REPOSITORY_URL=http://172.16.0.236:8081/repository/maven-snapshots/
+
     # 项目配置
+    GROUP_ID=com.che300.helloworld
     POM_NAME=helloworld
     POM_ARTIFACT_ID=helloworld
     POM_PACKAGING=aar
-    # SNAPSHOT版本
     VERSION_NAME=1.0.0-SNAPSHOT
-    # 简版上传可以不配置
-    VERSION_CODE=1
-    GROUP=com.car300.helloworld
-    
+    # release版本
+    #VERSION_NAME=1.0.0
     POM_DESCRIPTION=这是上传的第一个私有仓库
     POM_URL=https://github.com/car300/HelloWorld
-    
-    # 以下配置使用简版上传可以不配置
+
+    # 使用simple脚本时可以不配置
     POM_SCM_URL=https://github.com/car300/HelloWorld
     POM_SCM_CONNECTION=scm:git@github.com/car300/HelloWorld.git
     POM_SCM_DEV_CONNECTION=scm:git@github.com/car300/HelloWorld.git
-    
+
     POM_LICENCE_NAME=The Apache Software License, Version 2.0
     POM_LICENCE_URL=http://www.apache.org/licenses/LICENSE-2.0.txt
     POM_LICENCE_DIST=repo
-    
-    POM_DEVELOPER_ID=dede
+
+    POM_DEVELOPER_ID=hsh
     POM_DEVELOPER_NAME=hsh
     ```
 * 上传

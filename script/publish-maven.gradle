@@ -25,12 +25,12 @@ def isReleaseBuild() {
 
 def getReleaseRepositoryUrl() {
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : "http://192.168.1.107:8081/repository/maven-releases/"
+            : "http://172.16.0.236:8081/repository/maven-releases/"
 }
 
 def getSnapshotRepositoryUrl() {
     return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : "http://192.168.1.107:8081/repository/maven-snapshots/"
+            : "http://172.16.0.236:8081/repository/maven-snapshots/"
 }
 
 def getRepositoryUsername() {
@@ -47,7 +47,7 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                pom.groupId = GROUP
+                pom.groupId = GROUP_ID
                 pom.artifactId = POM_ARTIFACT_ID
                 pom.version = VERSION_NAME
 
@@ -96,16 +96,15 @@ afterEvaluate { project ->
 
     task androidJavadocs(type: Javadoc) {
         source = android.sourceSets.main.java.sourceFiles
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-        classifier = 'javadoc'
+    task androidJavadocsJar(type: Jar) {
+        classifier 'javadoc'
         from androidJavadocs.destinationDir
     }
 
     task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
+        classifier 'sources'
         from android.sourceSets.main.java.sourceFiles
     }
 
